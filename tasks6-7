@@ -1,0 +1,49 @@
+class Mammalia:
+    def __init__(self, WhatEating):
+        self.WE = WhatEating
+
+    def WhatTheyEat(self):
+        print("Млекопитающие бывают как травоядными, так и плотоядными.")
+
+class Carnivora(Mammalia):
+    def __init__(self, WhatEating, MeatOrGrass):
+        Mammalia.__init__(self, WhatEating)
+        self.MoG=MeatOrGrass
+        
+class Felidae(Carnivora):
+    def __init__(self, WhatEating, MeatOrGrass, WhatSound):
+        Carnivora.__init__(self, WhatEating, MeatOrGrass)
+        self.WT=WhatSound
+        
+class Panthera(Felidae):
+    def __init__(self, WhatEating, MeatOrGrass, WhatSound, WhatSize):
+        Felidae.__init__(self, WhatEating, MeatOrGrass, WhatSound)
+        self.WS=WhatSize
+        
+class Lion(Panthera):
+
+    __Population=30000
+    
+    def __init__(self, WhatEating, MeatOrGrass, WhatSound, WhatSize, WhatHair):
+        Panthera.__init__(self, WhatEating, MeatOrGrass, WhatSound, WhatSize)
+        self.WH=WhatHair
+
+    def WhatTheyEat(self):
+        print("Едят только мясо.")
+        print("А иногда и людей, ха-ха.")
+
+    def qty_objects():
+        return Lion.__Population
+
+Lion1 = Lion("Детеныши едят молоко", "Хищники едят мясо", "Все кошки мурчат", "По размеру особо большие", "Грива у львов крутая")
+print(Lion.qty_objects())
+
+filename = "task7.txt"
+with open(filename, "wb") as fh:
+    pickle.dump(Lion1, fh)
+
+with open(filename, 'rb') as f:
+    data_new = pickle.load(f)
+
+f = open("deserealization.txt", "w")
+f.write(str(data_new))
