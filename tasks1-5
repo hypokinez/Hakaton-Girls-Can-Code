@@ -1,0 +1,70 @@
+##task1
+def Add():
+    x = int(input())
+    y = int(input())
+    print(x+y)
+    return()
+Add()
+
+##random number generation function
+def Rand(a, c, m, x, rep):
+    f = open("text.txt", "w")
+    xn=x
+    for i in range(rep):
+        xn=(xn*a+c)%abs(m)
+        f.write(str(xn))
+        if(i!=rep-1):
+            f.write(", ")
+
+##encrypt file data and read from file to list
+def Shifrovka():
+    with open("text.txt", "r") as f:
+       text = f.read()
+    key=3
+    num=''
+    ListRand=[]
+    for i in text:
+        if (i==' ' or i==','):
+            if (num!=''):
+                ListRand.append(int(num)*key)
+                num=''
+            continue
+        num=num+i
+    f = open("text.txt", "w")
+    for i in ListRand:
+        f.write(str(i//key)+", ")
+    ListRand=[]
+    num=''
+    for i in text:
+        if (i==' ' or i==','):
+            if (num!=''):
+                ListRand.append(int(num))
+                num=''
+            continue
+        num=num+i
+    return(ListRand)
+    
+##sort numbers in ascending order
+def Sort(lst, m):
+    minim=m
+    a=0
+    num=0
+    LstSort=[]
+    for i in lst:
+        for j in lst:
+            a=a+1
+            if(j<=minim and j!=0):
+                minim=j
+                num=a
+        LstSort.append(minim)
+        lst[num-1]=0
+        minim=m
+        a=0
+    return(LstSort)
+
+Rand(2,3,7877,1,10000)
+ListRand=Shifrovka()
+LstSort=[]
+LstSort=Sort(ListRand, 7877)
+f = open("text.txt", "w")
+f.write(str(LstSort))
